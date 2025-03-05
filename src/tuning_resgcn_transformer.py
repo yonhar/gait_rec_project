@@ -13,12 +13,12 @@ def objective(trial):
     opt = parse_option()
     
     # Define hyperparameter search space
-    opt.embedding_layer_size = trial.suggest_categorical("embedding_layer_size", [64,128])
+    opt.embedding_layer_size = 128
     opt.dropout = trial.suggest_float("dropout", 0.1, 0.4, step=0.1)
     opt.learning_rate = trial.suggest_loguniform("learning_rate", 1e-4, 1e-2)
     opt.lr_decay_rate = trial.suggest_float("lr_decay_rate", 0.05, 0.2)
     opt.valid_data_path = '../data/casia-b_pose_test.csv'
-    opt.batch_size = 32
+    opt.batch_size = trial.suggest_float("batch_size", 64, 128)
     opt.epochs = 30
     opt.network_name = 'resgcn_transformer-n39-r8'
     opt.dataset = 'casia-b'
